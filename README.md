@@ -16,7 +16,7 @@ The Membership Platform was built using [Stripe API](https://stripe.com/docs/api
 
 If you haven't already, you'll need to create an account with [Stripe](https://stripe.com/) and create *live* Secret and Public API keys. 
 
-Locate the `stripe.js` and `profilestripe.js` files located in `themes/soulstology/assets/vendor`. You just need to add your Public Key in this step. Update the files with your own Public Keys.
+Locate the `stripe.js` and `profilestripe.js` files located in `themes/soulstology/assets/vendor`. Update the files with your own Public Keys.
 
 ```
 // Create a Stripe client.
