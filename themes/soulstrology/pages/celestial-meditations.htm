@@ -1,0 +1,139 @@
+title = "High Vibes Tracks"
+url = "/high-vibes-tracks"
+layout = "member-realm-template"
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "membership"
+
+[blogPosts celestialPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "celestial-meditations"
+postsPerPage = 100
+noPostsMessage = "No posts found"
+sortOrder = "title asc"
+categoryPage = "member-post"
+postPage = "member-post"
+
+[blogPosts soundbathPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "sound-baths"
+postsPerPage = 100
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "member-post"
+postPage = "member-post"
+
+[blogPosts kylePosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "kyles-soundbaths"
+postsPerPage = 100
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "member-post"
+postPage = "member-post"
+==
+<!-- Header-->
+<div class="product-page"></div>
+<!-- SOUND BATH COLLECTION -->        
+<section class="collective-section bg-light align-items-center text-center">
+  <h2 class="text-gold mb-4">HIGH VIBES TRACKS</h2>
+  
+  <div class="row no-gutters mb-lg-0 text-center">
+    <div class="container">
+       <div class="col-md-12">
+      
+       <h4 class="six-point"><i>SOUNDBATHS BY AMBI KAVANAGH</i></h4>
+       {% set posts = soundbathPosts.posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+                 <li>
+                    {% if post.featured_images.count %}
+                    <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                  <a href="{{ post.url }}">
+                     <img style="width:100%;max-width:400px" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p>{{ post.title }}</p>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+                </li>
+        </ul>
+       </div>
+       
+       <div class="col-md-12 pt-5">
+         <h4 class="six-point"><i>CELESTIAL MEDITATIONS BY AMBI KAVANAGH</i></h4>  
+        {% set posts = celestialPosts.posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+                 <li>
+                    {% if post.featured_images.count %}
+                    <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                  <a href="{{ post.url }}">
+                     <img style="width:100%;max-width:400px" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p>{{ post.title }}</p>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+                </li>
+        </ul>
+       </div>
+       
+       <div class="col-md-12 pt-5">
+         <h4 class="six-point"><i>SOUNDBATHS BY KYLE LAM</i></h4>  
+        {% set posts = kylePosts.posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+                 <li>
+                    {% if post.featured_images.count %}
+                    <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                  <a href="{{ post.url }}">
+                     <img style="width:100%;max-width:400px" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p>{{ post.title }}</p>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+                </li>
+        </ul>
+       </div>
+       
+       
+       </div>
+    </div>    
+   
+        
+  
+ 
+  
+
+</section>

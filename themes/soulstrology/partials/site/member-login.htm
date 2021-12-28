@@ -1,0 +1,49 @@
+[viewBag]
+==
+<!-- Member Login -->
+<div class="modal fade" id="member-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exampleModalLongTitle">&nbsp;MEMBER LOGIN</h5>
+        <p></p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <div class="modal-body">
+                 <form
+                data-request="onSignin"
+                data-request-flash
+                >
+                <div class="form-group">
+                <label for="userSigninLogin"><h5>{{ loginAttributeLabel }}</h5></label>
+                    <input
+                        name="login"
+                        type="text"
+                        class="form-control"
+                        id="userSigninLogin"
+                        placeholder="Enter your {{ loginAttributeLabel|lower }}" />
+                </div>
+
+                <div class="form-group">
+                <label for="userSigninPassword"><h5>Password</h5></label>
+                    <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        autocomplete="off"
+                        id="userSigninPassword"
+                        placeholder="Enter your password" />
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+            <p><center><a type="button" data-toggle="modal" data-target="#reset" data-dismiss="modal">Forgot Your Password?</a></center></p>
+         </div>
+      <div class="modal-footer">
+       <p></p>
+      </div>
+    </div>
+  </div>
+</div>

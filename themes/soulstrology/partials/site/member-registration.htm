@@ -1,0 +1,109 @@
+[viewBag]
+==
+<!-- Member Registration -->
+<div class="modal fade" id="member-registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exampleModalLongTitle">&nbsp;MEMBERSHIP REGISTRATION</h5>
+        <p></p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          
+          <div class="modal-body">
+          <div id="success">
+            <form data-request="onSubmitMembershipRegistration" data-request-validate data-request-flash >
+                
+                <div class="form-group">
+                <label for="name">FIRST</label>
+                <input
+                    name="name"
+                    type="text"
+                    class="form-control"
+                    id="registerName"
+                    placeholder="Enter your first name" />
+                </div>
+                
+                <div class="form-group">
+                <label for="surname">LAST</label>
+                <input
+                    name="surname"
+                    type="text"
+                    class="form-control"
+                    id="registerSurname"
+                    placeholder="Enter your last name" />
+                </div>
+                
+                <div class="form-group">
+                <label for="name">EMAIL</label>
+                <input
+                     name="email"
+                     type="email"
+                     class="form-control"
+                     id="registerEmail"
+                     placeholder="Enter your email" />
+                </div>
+                
+                <div class="form-group">
+                <label for="name">PASSWORD</label>
+                <input
+                     name="password"
+                     type="password"
+                     class="form-control"
+                     id="registerPassword"
+                     autocomplete="off"
+                     placeholder="Create a password" />
+                </div>
+                
+                <div class="form-group">
+                <label for="name">SELECT A PLAN</label>
+					            <div class="row">
+					                <div class="col-lg-6">
+					                <div class="subscription-option">
+					                    <input type="radio" id="monthly" name="plan" value="soul-monthly" checked>
+					                    <label for="monthly" class="subscribe">
+					                  
+					                    <span class="plan-price">$18/mo MONTHLY</span>
+					                    
+					                   </label>
+					                   </input>
+					                
+					                </div>
+					                </div>
+					                
+					                <div class="col-lg-6">
+					                <div class="subscription-option">
+					                  
+					                    <input type="radio" id="annual" name="plan" value="soul-annual">
+					                    <label for="annual" class="subscribe">
+					                    
+					                    <span class="plan-price">$190/yr ANNUAL</span>
+					                    
+					                    </label>
+					                    </input>
+					                </div>
+					                </div>
+					            </div>
+					        </div>
+                
+                <div class="form-group">
+                <label for="name">ENTER BILLING INFO</label>
+               
+                <div id="card-element" class="card-element"></div>
+                <div id="card-errors" role="alert"></div>           
+                    
+                </div>
+               
+                <button data-attach-loading type="submit" class="btn btn-secondary mt-4">ACTIVATE MEMBERSHIP</button>
+                
+            </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+        <p></p>
+      </div>
+    </div>
+  </div>
+</div>

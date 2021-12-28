@@ -1,0 +1,40 @@
+[viewBag]
+==
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  
+<i class="fas fa-bars"></i>
+</button>
+    
+    <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">HOME</a></li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/shop-all" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SHOP</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/virtual-events-with-ambi">Virtual Events With Ambi</a>
+              <a class="dropdown-item" href="/apparel">Apparel</a>
+              <a class="dropdown-item" href="/shop-all">Shop All</a>
+            </div>
+            </li>
+           
+<!-- WHEN LOGGED IN AS A MEMBER-->    
+            {% if user %}
+            <li class="nav-item"><a class="nav-link" href="/member-realm"><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-unlock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/><path fill-rule="evenodd" d="M8.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>&nbsp;MEMBER REALM</a></li>
+            <li class="nav-item"><a class="nav-link" href="/my-profile">MY PROFILE</a></li>
+            {% endif %}
+            
+            {% if user %}
+            <li class="nav-item"><a class="nav-link" data-request="onLogout" data-request-data="redirect: '/'">LOGOUT</a></li>
+
+            {% else %}
+            <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#member-login"><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/><path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>&nbsp;MEMBER REALM</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#member-login"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#member-registration">SIGN UP NOW!</a></li>
+
+            {% endif %}
+            <li class="nav-item"><a class="nav-link js-scroll-trigger snipcart-checkout" href=""><svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></a></li>
+        </ul>    
+    </div>
+</nav>

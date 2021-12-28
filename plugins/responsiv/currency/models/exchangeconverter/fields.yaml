@@ -1,0 +1,14 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    class_name:
+        label: responsiv.currency::lang.converter.class_name
+        type: dropdown
+        attributes:
+            onChange: $(this).request('onRefresh')
+
+    refresh_interval:
+        label: responsiv.currency::lang.converter.refresh_interval
+        type: dropdown

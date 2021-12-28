@@ -1,0 +1,366 @@
+title = "Member Realm"
+url = "/member-realm"
+layout = "member-realm-template"
+is_hidden = 0
+
+[account]
+paramCode = "code"
+forceSecure = 0
+
+[session]
+security = "user"
+redirect = "cosmic-coaching-membership"
+
+[blogPosts transitPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "cosmic-transits"
+postsPerPage = 20
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "6-month-transit-reading-checkout"
+postPage = "member-post"
+
+[blogPosts moonPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "moon-guides"
+postsPerPage = 20
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "6-month-transit-reading-checkout"
+postPage = "member-post"
+
+[blogPosts scopesPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "soulstrology-scopes"
+postsPerPage = 20
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "6-month-transit-reading-checkout"
+postPage = "member-post"
+
+[searchForm]
+resultPage = "blog-search-results"
+categoryFilter = 0
+
+[blogPosts consciousnessPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "consciousness-education"
+postsPerPage = 20
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "6-month-transit-reading-checkout"
+postPage = "member-post"
+==
+<?php
+use RainLab\User\Models\Settings;
+
+function onStart()
+{ 
+    $user = \Auth::getUser();
+    
+    $stripe_id = $user-> stripe_id;
+    
+    \Stripe\Stripe::setApiVersion("2019-05-16");
+
+    \Stripe\Stripe::setApiKey("[ YOUR STRIPE SECRET KEY ]");
+    
+    $data = \Stripe\Customer::retrieve( $stripe_id );
+    
+    $id = $data->subscriptions->data;
+     
+    if ( $id == FALSE ) {
+        // This user is not a paying customer...
+        return redirect('my-profile'); 
+    }
+}
+?>
+==
+<script src="{{'assets/vendor/cosmicblog.js'|theme}}"></script>
+<body id="page-top">
+
+<!-- Header-->
+<div class="product-page"></div>
+      
+<section class="member-section">
+
+<div class="row no-gutters mb-lg-0 bg-gold">
+    <div class="col-lg-12 text-center mt-4 ">
+        <div class="container">
+           <h2>COSMIC COACHING</h2>
+           <p class="text-white six-point">MEMBER REALM</p>
+         </div>
+    </div>
+</div>
+</section>
+
+<!-- Retrograde Banner -->        
+<section>
+<div class="row no-gutters mb-5 mb-lg-0">
+    <div class="col-lg-12 mx-auto bg-black banner-section"><div class="container">{% partial 'site/member_realm_banner' %}</div></div>        
+</div>
+</section>
+
+<!-- Member Clickables-->
+<section class="member-section bg-pink mt-2">
+
+<div class="row no-gutters mb-lg-0 text-center">
+
+       <div class="col-md-6 p-5">
+       <img class="img-fluid" src="https://soulstrology.com/storage/app/media/sound-white.png" alt="cosmicr" width="60"/>
+       <h4 class="six-point"><i>VIRTUAL LIVE EVENTS</i></h4>
+       <p class="text-white">You might recognize them as the *Monthly Coaching Calls*. Ambi wanted to expand these calls into an event that closely resembles her IRL events (ya know, back when things were a little more normal). As a Member you get a free spot in all of them.</p>
+       <a class="shop font-weight-bold" target="_blank" href="/virtual-live-events-with-ambi">Reserve your spot for the Zoom link ></a></div>
+       
+       <div class="col-md-6 p-5">
+       <img class="img-fluid" src="https://soulstrology.com/storage/app/media/phases-white.png" alt="cosmicr" width="60"/>
+       <h4 class="six-point"><i>2021 MOON CALENDAR</i></h4>
+       <p class="text-white">Our guide in how to work with the New and Full Moons can be found further down under the Moon Guides blog feed. We also created this Moon Calendar that gives you all of the dates for every New and Full Moon this year.</p>
+       <a class="shop font-weight-bold" target="_blank" href="https://soulstrology.com/storage/app/media/2021%20Soulstrology%20Moon%20Calendar.pdf">Download it and make it your background image on your phone ></a></div>
+    </div>        
+
+</section> 
+
+<!-- Member Clickables-->
+<section class="cosmic-section bg-black mt-2 mb-4">
+
+<div class="row no-gutters mb-lg-0">
+      
+       <div class="col-md-12 p-5 text-center">
+       <div class="container">
+       <img class="img-fluid" src="https://soulstrology.com/storage/app/media/eye-white.png" alt="cosmicr" width="60"/>
+       <h4 class="text-white six-point"><i>COSMIC R&R</i></h4>
+       <p class="cotton-candy">Listening to the right combination of tones and notes can raise your vibrations, which is why we curated a growing library of Guided Celestial Meditations and Soundbaths.</p>
+       <a class="shop font-weight-bold text-white" target="_blank" href="/high-vibes-tracks">Explore all of the *high vibes* tracks included in your membership ></a> 
+       </div>
+       </div>
+       
+</div>        
+</section>
+
+<!-- Blog Vault -->
+<section class="member-section">
+<div class="container">  
+    <div class="row no-gutters mb-5 mb-lg-0">
+    <div class="col-lg-4 featured-text text-lg-left"><h2 class="text-gold">BLOG VAULT</h2></div>
+    <div class="col-lg-8">
+           <form class="form-search" method="GET" action="https://soulstrology.com/blog-search-results">
+            <input type="text" name="search" class="form-search" placeholder="Type in a few keywords then hit enter to search.">
+           </form>
+    </div>
+    </div>
+</section>              
+<!-- Cosmic Transits -->
+<section class="member-section mt-5">
+<div class="container">  
+    <div class="row no-gutters mb-2 mb-lg-0">
+    <div class="col-lg-12 featured-text text-lg-left"><h2 class="text-gold">COSMIC TRANSITS</h2></div>
+    <div class="col-lg-12">
+            <div class="uk-section uk-section-default uk-padding">
+              <div class="uk-align-center" data-uk-slider="clsActivated: uk-transition-active; ">
+                   <div class="uk-position-relative uk-visible-toggle" tabindex="1">
+                    {% set posts = transitPosts.posts %}
+                   <ul class="uk-slider-items uk-grid-match uk-child-width-1-2@s" data-uk-grid>
+                    {% for post in posts %}
+                   <li class="uk-width-1-3@m">
+                    {% if post.featured_images.count %}
+                   <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                    <a href="{{ post.url }}" target="_blank">
+                     <img class="img-fluid" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p class="slide">{{ post.title }}</p>
+
+                    <b class="slide">{{ post.published_at|date('M d, Y') }}</b>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+   
+                </li>
+        
+              </ul>
+              <div class="visible@s">
+              <a class="uk-slidenav-large uk-position-center-left uk-light" href="#" data-uk-slidenav-previous data-uk-slider-item="previous"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
+              <a class="uk-slidenav-large uk-position-center-right uk-light" href="#" data-uk-slidenav-next data-uk-slider-item="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+              </div>
+                </div>
+          </div>
+        </div>
+    </div>
+    </div>
+
+<!-- Moon Guides -->
+    <div class="row no-gutters mb-2 mb-lg-0">
+    <div class="col-lg-12 featured-text text-lg-left"><h2 class="text-gold">MOON GUIDES</h2></div>
+    <div class="col-lg-12">
+         
+            <div class="uk-section uk-section-default uk-padding">
+              <div class="uk-align-center" data-uk-slider="clsActivated: uk-transition-active; ">
+                   <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
+                   {% set posts = moonPosts.posts %}
+                   <ul class="uk-slider-items uk-grid-match uk-child-width-1-2@s" data-uk-grid>
+                    {% for post in posts %}
+                   <li class="uk-width-1-3@m" style="order: 1;">
+                    {% if post.featured_images.count %}
+                   <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                    <a href="{{ post.url }}" target="_blank">
+                     <img class="img-fluid" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p class="slide">{{ post.title }}</p>
+
+                    <b class="slide">{{ post.published_at|date('M d, Y') }}</b>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+   
+                </li>
+        
+              </ul>
+              <div class="visible@s">
+              <a class="uk-slidenav-large uk-position-center-left uk-light" href="#" data-uk-slidenav-previous data-uk-slider-item="previous"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
+              <a class="uk-slidenav-large uk-position-center-right uk-light" href="#" data-uk-slidenav-next data-uk-slider-item="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+              </div>
+                </div>
+            
+          </div>
+
+    </div>
+    </div>
+     </div>  
+    
+<!-- Soulstrology Scopes -->
+    <div class="row no-gutters mb-2 mb-lg-0">
+    <div class="col-lg-12 featured-text text-lg-left"><h2 class="text-gold">SOULSTROLOGY SCOPES</h2></div>
+    <div class="col-lg-12">
+              
+            <div class="uk-section uk-section-default uk-padding">
+              <div class="uk-align-center" data-uk-slider="clsActivated: uk-transition-active; ">
+                   <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
+                   {% set posts = scopesPosts.posts %}
+                   <ul class="uk-slider-items uk-grid-match uk-child-width-1-2@s" data-uk-grid>
+                    {% for post in posts %}
+                   <li class="uk-width-1-3@m" style="order: 1;">
+                    {% if post.featured_images.count %}
+                   <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                    <a href="{{ post.url }}" target="_blank">
+                     <img class="img-fluid" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p class="slide">{{ post.title }}</p>
+
+                    <b class="slide">{{ post.published_at|date('M d, Y') }}</b>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+   
+                </li>
+        
+              </ul>
+              <div class="visible@s">
+              <a class="uk-slidenav-large uk-position-center-left uk-light" href="#" data-uk-slidenav-previous data-uk-slider-item="previous"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
+              <a class="uk-slidenav-large uk-position-center-right uk-light" href="#" data-uk-slidenav-next data-uk-slider-item="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+              </div>
+                </div>
+            
+          </div>
+        </div> 
+    </div>      
+    </div>    
+
+<!-- Consciousness -->
+    <div class="row no-gutters mb-5 mb-lg-0">
+    <div class="col-lg-12 featured-text text-lg-left">
+    <h2 class="text-gold">CONSCIOUSNESS</h2>
+    <i>Education on the cosmos and other modalities to help you mind, body and soul.</i>
+    </div>
+    <div class="col-lg-12">
+              
+
+
+            <div class="uk-section uk-section-default uk-padding">
+              <div class="uk-align-center" data-uk-slider="clsActivated: uk-transition-active; ">
+                   <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
+                    {% set posts = consciousnessPosts.posts %}
+                   <ul class="uk-slider-items uk-grid-match uk-child-width-1-2@s" data-uk-grid>
+                    {% for post in posts %}
+                   <li class="uk-width-1-3@m">
+                    {% if post.featured_images.count %}
+                   <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                    <a href="{{ post.url }}" target="_blank">
+                     <img class="img-fluid" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p class="slide">{{ post.title }}</p>
+
+                    <b class="slide">{{ post.published_at|date('M d, Y') }}</b>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+   
+                </li>
+        
+              </ul>
+              <div class="visible@s">
+              <a class="uk-slidenav-large uk-position-center-left uk-light" href="#" data-uk-slidenav-previous data-uk-slider-item="previous"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
+              <a class="uk-slidenav-large uk-position-center-right uk-light" href="#" data-uk-slidenav-next data-uk-slider-item="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+              </div>
+                </div>
+            
+          </div>
+
+    </div>
+        
+    </div>    
+</div> 
+    </div>
+   </div>
+ </div>  
+</section>
+
+<!-- Facebook-->
+<section class="member-section  mb-2">
+<div class="row no-gutters mb-lg-0 text-center bg-gold">
+    
+    <div class="col-md-12 p-5">
+    <div class="container">
+    <img class="img-fluid" src="https://soulstrology.com/storage/app/media/sunrays-white.png" alt="cosmicr" width="60"/>
+    <h4 class="text-white six-point"><i>BIRDS OF THE SAME FEATHER FLOCK TOGETHER</i></h4>
+       <p>- We know how hard it is to find your kinfolk -</p>If you're looking to meet other Earthlings who get what it means to "trust The Universe" or can totally feel the energetic shift when a planet "goes direct" than the <b>Cosmic Conscious Community</b> is the perfect group you.</p>
+       <a class="shop font-weight-bold text-white" target="_blank" href="https://www.facebook.com/groups/176746956367298/">If you haven’t already, request to be added to this Member's Only Facebook group ></a>
+    </div>
+    </div>   
+</div>        
+</section>
+</body>

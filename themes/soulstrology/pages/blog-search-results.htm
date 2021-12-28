@@ -1,0 +1,84 @@
+title = "Blog Search Results"
+url = "/blog-search-results"
+layout = "member-realm-template"
+is_hidden = 0
+
+[searchResult]
+searchTerm = "{{ :search }}"
+pageNumber = "{{ :page }}"
+disableUrlMapping = 1
+hightlight = 0
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+includeCategories[] = 2
+includeCategories[] = 3
+includeCategories[] = 4
+includeCategories[] = 5
+includeCategories[] = 6
+includeCategories[] = 7
+includeCategories[] = 8
+categoryPage = "member/category"
+postPage = "member-post"
+
+[session]
+security = "user"
+redirect = "membership"
+==
+<body id="page-top">
+
+<!-- Header-->
+<div class="product-page"></div>
+
+<section class="member-section">
+
+<div class="row no-gutters mb-lg-0">
+    <div class="col-lg-12 text-center mt-4 ">
+        <div class="container">
+           <h2 class="text-gold">BLOG SEARCH RESULTS</h2>
+         </div>
+    </div>
+    
+    <div class="col-lg-12 text-center mt-4 ">
+        <div class="container">
+             {% set posts = searchResult.posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+                 <li>
+                    {% if post.featured_images.count %}
+                    <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                  <a href="{{ post.url }}">
+                     <img class="img-fluid" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p class="slide">{{ post.title }}</p>
+
+                    <p class="slide">POSTED ON {{ post.published_at|date('M d, Y') }}</p>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+                </li>
+        </ul>
+           
+           
+         </div>
+    </div>
+    
+    <div class="col-lg-12 text-center mt-5 mb-5">
+        <div class="container">
+           <b>Can't find it? Ping us what you're looking for at CosmicTeam@Soulstrology.com.</b>
+         </div>
+    </div>
+    
+    
+    
+</div>
+</section>

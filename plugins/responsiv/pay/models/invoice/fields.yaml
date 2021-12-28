@@ -1,0 +1,106 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+        # payment_method:
+        #     label: Payment Gateway
+        #     type: relation
+        #     tab: Invoice Details
+        #     span: left
+
+        # is_tax_exempt:
+        #     label: Tax exempt
+        #     comment: Tick this checkbox if the tax should not be applied to this invoice
+        #     type: checkbox
+        #     tab: Invoice Details
+        #     span: auto
+
+        user:
+            label: User
+            type: recordfinder
+            list: ~/plugins/rainlab/user/models/user/columns.yaml
+            prompt: Click the %s button to find a user
+            nameFrom: name
+            descriptionFrom: email
+            tab: Invoice Details
+            span: left
+
+        sent_at:
+            label: Sent Date
+            type: datepicker
+            mode: date
+            span: left
+            tab: Invoice Details
+            context: update
+
+        due_at:
+            label: Due Date
+            type: datepicker
+            mode: date
+            span: auto
+            tab: Invoice Details
+
+        first_name:
+            label: First name
+            tab: Customer Details
+            span: left
+            dependsOn: user
+
+        last_name:
+            label: Surname
+            tab: Customer Details
+            span: right
+            dependsOn: user
+
+        email:
+            label: Email
+            tab: Customer Details
+            dependsOn: user
+
+        company:
+            label: Company
+            tab: Customer Details
+            span: left
+            dependsOn: user
+
+        phone:
+            label: Phone
+            tab: Customer Details
+            span: right
+            dependsOn: user
+
+        city:
+            label: City
+            tab: Billing Address
+            span: left
+            dependsOn: user
+
+        zip:
+            label: Zip
+            tab: Billing Address
+            span: right
+            dependsOn: user
+
+        street_addr:
+            label: Street Address
+            tab: Billing Address
+            dependsOn: user
+
+        country:
+            label: Country
+            type: dropdown
+            tab: Billing Address
+            span: left
+            dependsOn: user
+            placeholder: -- select country --
+
+        state:
+            label: State
+            type: dropdown
+            tab: Billing Address
+            span: right
+            dependsOn: [country, user]
+            placeholder: -- select state --
+

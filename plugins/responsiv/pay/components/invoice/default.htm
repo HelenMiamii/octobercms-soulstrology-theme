@@ -1,0 +1,70 @@
+{% if invoice %}
+
+    <!-- Invoice header -->
+    <div class="row">
+        <div class="col-md-6">
+
+            <h4>Bill to</h4>
+            <p>
+                {% if invoice.company %}<strong>{{ invoice.company }}</strong><br />{% endif %}
+                Attention: {{ invoice.first_name }} {{ invoice.last_name }}<br />
+                {% if invoice.street_addr %}{{ invoice.street_addr }}<br />{% endif %}
+                {% if invoice.city or invoice.zip %}{{ invoice.city }} {{ invoice.zip }}<br />{% endif %}
+                {% if invoice.state %}{{ invoice.state.name }}, {% endif %}
+                {% if invoice.country %}{{ invoice.country.name }}{% endif %}
+                {% if invoice.phone %}<br />{{ invoice.phone }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-6 text-right">
+            <h2>Invoice {{ invoice.getUniqueId }}</h2>
+            <p>Date: {{ invoice.sent_at ? invoice.sent_at.toFormattedDateString }}</p>
+            {% if invoice.template %}
+                <p><a href="javascript:printInvoice()">Print this invoice</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Invoice table -->
+    <div id="partialPaymentInvoice">
+        {% partial '@invoice_table' %}
+    </div>
+
+    <!-- Status -->
+    <div class="text-right">
+        {% if invoice.payment_method %}
+            {% if invoice.isPaid %}
+                <h4>This invoice has been paid!</h4>
+                <p>Thank you for your business.</p>
+            {% else %}
+                <h4>This invoice has not been paid</h4>
+                <a class="btn btn-success btn-lg" href="{{ invoice.url }}">
+                    Pay this Invoice
+                </a>
+            {% endif %}
+        {% else %}
+            <p>Sorry there are no payment gateways available to use!</p>
+        {% endif %}
+    </div>
+
+    {% if invoice.template %}
+        <!-- Invoice printer -->
+        <script type="text/template" id="invoiceTemplateContents">
+            {{ invoice.template.renderInvoice(invoice)|raw }}
+        </script>
+        <script>
+            function printInvoice() {
+               var printWindow = window.open('','','left=0,top=0,width=950,height=500,toolbar=0,scrollbars=0,status=0')
+               printWindow.document.write($('#invoiceTemplateContents').html())
+               printWindow.document.close()
+               printWindow.focus()
+               printWindow.print()
+               printWindow.close()
+            }
+        </script>
+    {% endif %}
+
+{% else %}
+
+    <p>Sorry, that invoice could not be found</p>
+
+{% endif %}

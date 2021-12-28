@@ -1,0 +1,56 @@
+title = "Member Post"
+url = "/member-post/:slug"
+layout = "member-realm-template"
+is_hidden = 0
+
+[blogPost]
+slug = "{{ :slug }}"
+categoryPage = 404
+
+[session]
+security = "user"
+redirect = "membership"
+==
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Header-->
+<div class="product-page"></div>
+
+<section>
+<div class="container">
+    <div class="row">
+    
+        <div class="col-lg-8 mx-auto mt-5 mb-2 text-center">
+        <h4>{{ post.title }}</h4>
+        </div>
+        
+        <div class="col-lg-8 mx-auto text-center">
+            {% if post %}
+    
+            {% set post = blogPost.post %}
+
+            {% if post.featured_images.count %}
+
+            {% endif %}
+
+        <div class="content">{{ post.content_html|raw }}</div>
+        </div>
+        
+        <div class="col-lg-8 mx-auto mt-3 mb-2 text-center">
+            <p>
+            Posted
+            {% if post.categories.count %} in
+            {% for category in post.categories %}
+            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            {% endif %}
+            on {{ post.published_at|date('M d, Y') }}
+            </p>
+            {% else %}
+            <h2>Post not found</h2>
+            {% endif %}
+        </div>
+    
+    </div>
+</div>
+</section>

@@ -1,0 +1,6 @@
+plugin:
+    name: 'abrabinah.registration::lang.plugin.name'
+    description: 'abrabinah.registration::lang.plugin.description'
+    author: Abrabinah
+    icon: oc-icon-heart
+    homepage: ''

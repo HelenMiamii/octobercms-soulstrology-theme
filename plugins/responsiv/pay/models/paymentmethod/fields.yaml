@@ -1,0 +1,34 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+        is_enabled:
+            label: Enabled
+            type: checkbox
+            tab: General
+
+        name:
+            label: Name
+            tab: General
+            span: auto
+            comment: The name to display this payment type on the front-end.
+            
+        code:
+            label: Code
+            span: auto
+            tab: General
+            comment: The unique code as an identifier of this payment type.
+
+        description:
+            label: Description
+            type: textarea
+            size: small
+            tab: General
+            comment: An optional description for this payment type.
+
+        countries:
+            type: relation
+            commentAbove: Restrict payment type to selected countries. If none are selected the payment gateway is applicable to all countries.
+            tab: Countries

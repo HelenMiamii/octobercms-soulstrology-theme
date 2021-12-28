@@ -1,0 +1,52 @@
+title = "Sound Bath Collection"
+url = "/sound-bath-collection"
+layout = "member-realm-template"
+is_hidden = 0
+
+[blogPosts soundbathPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "sound-baths"
+postsPerPage = 100
+noPostsMessage = "No posts found"
+sortOrder = "title asc"
+categoryPage = "category"
+postPage = "member-post"
+
+[session]
+security = "user"
+redirect = "membership"
+==
+<!-- Header-->
+<div class="product-page"></div>
+<!-- SOUND BATH COLLECTION -->        
+<section class="shop-section bg-light align-items-center text-center">
+ <h2 class="text-gold bottom">SOUND BATH COLLECTION</h2>
+   <div class="container">
+    
+      
+        {% set posts = soundbathPosts.posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+                 <li>
+                    {% if post.featured_images.count %}
+                    <div id="post-list-featured-images-top">
+                    {% for image in post.featured_images|slice(0, 1) %}
+                    
+                  <a href="{{ post.url }}">
+                     <img style="width:100%;max-width:400px" data-src="{{ image.filename }}" src="{{ image.path }}" alt="{{ image.description != null ? image.description : image.filename }}" title="{{ image.title != null ? image.title : post.title }}">
+                  </a>
+                  
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p></p>
+                    <p>{{ post.title }}</p>
+                    
+                    {% else %}
+                    {% endfor %}
+                    {% if posts.lastPage > 1 %}
+                    {% endif %}
+                </li>
+        </ul>
+   </div>
+</section>

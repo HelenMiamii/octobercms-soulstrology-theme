@@ -1,0 +1,29 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    currency_code:
+        label: responsiv.currency::lang.currency.code
+        searchable: yes
+        width: 150px
+
+    name:
+        label: responsiv.currency::lang.currency.name
+        searchable: yes
+        
+    example:
+        sortable: false
+        type: partial
+        path: example_column
+
+    is_primary:
+        label: responsiv.currency::lang.currency.is_primary
+        type: switch
+        width: 150px
+
+    is_enabled:
+        label: responsiv.currency::lang.currency.is_enabled
+        type: switch
+        invisible: true
+        width: 150px

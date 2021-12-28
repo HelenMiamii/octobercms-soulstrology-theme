@@ -1,0 +1,63 @@
+title = "Processing New Subscription"
+url = "/processing-new-subscription"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use RainLab\User\Models\Settings;
+
+
+function onStart()
+{
+        \Stripe\Stripe::setApiVersion("2019-05-16");
+    
+        \Stripe\Stripe::setApiKey("[ YOUR STRIPE SECRET KEY ]");
+    
+        $user = \Auth::getUser();
+        
+        $stripe_id = $user-> stripe_id;
+        
+        $new_plan = $_POST['new_plan'];
+         
+        $user->newSubscription('main', $new_plan )->create();
+        
+        \Stripe\Customer::update(
+        $stripe_id,
+            [
+                'description' => $new_plan,
+            ]
+        );
+        
+        $data = [
+          'email'     => $user-> email,
+          'status'    => 'subscribed'
+        ];
+
+      $apiKey = '[ YOUR MAILCHIMP API KEY ]';
+      $listId = '[ YOUR MEMBERSHIP LIST ID ]';
+      $memberId = md5(strtolower($data['email']));
+      $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
+      $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listId . '/members/' . $memberId;
+      $json = json_encode([
+      'email_address' => $data['email'],
+      'status'        => $data['status'], // "subscribed","unsubscribed","cleaned","pending"
+
+      ]);
+      
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+      $result = curl_exec($ch);
+      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
+        
+        return redirect('my-profile');
+}
+?>
+==

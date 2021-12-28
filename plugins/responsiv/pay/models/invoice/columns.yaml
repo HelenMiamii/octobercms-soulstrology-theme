@@ -1,0 +1,104 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    status_name:
+        label: Status
+        relation: status
+        select: name
+        sortable: false
+        type: partial
+        path: column_status
+
+    id:
+        label: ID
+        type: partial
+        path: $/responsiv/pay/controllers/invoices/_column_id.htm
+        searchable: true
+        width: 100px
+
+    user_ip:
+        label: IP Address
+        invisible: true
+
+    email:
+        label: Email
+        searchable: true
+
+    first_name:
+        label: First name
+        searchable: true
+        invisible: true
+
+    last_name:
+        label: Last name
+        searchable: true
+        invisible: true
+
+    processed_at:
+        label: Processed at
+        type: date
+        invisible: true
+
+    status_updated_at:
+        label: Status updated
+        type: date
+        invisible: true
+
+    sent_at:
+        label: Date
+        type: date
+
+    due_at:
+        label: Due date
+        type: date
+
+    total:
+        label: Total
+        searchable: true
+
+    subtotal:
+        label: Subtotal
+        invisible: true
+
+    phone:
+        label: Phone
+        invisible: true
+
+    company:
+        label: Company
+        invisible: true
+
+    street_addr:
+        label: Address
+        invisible: true
+
+    city:
+        label: City
+        invisible: true
+
+    zip:
+        label: Zip
+        invisible: true
+
+    state:
+        label: State
+        relation: state
+        select: name
+        sortable: false
+        invisible: true
+
+    country:
+        label: Country
+        relation: country
+        select: name
+        sortable: false
+        invisible: true
+
+    payment_method:
+        label: Gateway
+        relation: payment_method
+        select: name
+        sortable: false
+        invisible: true

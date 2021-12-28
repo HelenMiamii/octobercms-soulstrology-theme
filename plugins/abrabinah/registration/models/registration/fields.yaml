@@ -1,0 +1,5 @@
+fields:
+    Membership:
+        label: Membership
+        span: full
+        type: text

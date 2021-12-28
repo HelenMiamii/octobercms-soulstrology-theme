@@ -1,0 +1,167 @@
+title = "Birth Chart Calculator"
+url = "/birth-chart-calculator"
+layout = "default"
+is_hidden = 0
+==
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="form-group">
+<div class="col-lg-6 col-xs-12 col-sm-12">
+<div class="on_the_cosmos">
+<div class="portlet light box-shadow-depth-1 bordered">
+<div class="portlet-title">
+<div class="caption">
+<span class="caption-subject bold"><h4>BIRTH&nbsp; CHART&nbsp; CALCULATOR</h4></span>
+<span class="caption-helper">Fill out the following details to access a brief overview of your Birth Chart.</span>
+<div class="portlet-body ">
+<form class="form-horizontal astrology-form" role="form" method="post" action="https://soulstrology.com/birth-chart">
+
+<div class="form-group " id="formErrorContiner">
+<div class="col-md-12">
+<label id="WhoroscopeFormError" class="font-red control-label display-none "></label>
+</div>
+</div>
+
+<div class="form-group">
+<div class="col-md-12">
+<label for="name" class="control-label"><h1>NAME</h1></label>
+<input type="text" class="form-control" name="name" placeholder="Name">
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<div class="col-md-12">
+<br></br>
+<h1>DATE OF BIRTH</h1>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<div class="col-md-4">
+<label for="date" class="control-label">date</label>
+<input type="number" class="form-control" name="day" id="day" placeholder="DD">
+</div>
+
+<div class="col-md-4">
+<label for="month" class="control-label">month</label>
+<input type="number" class="form-control" name="month" id="month" placeholder="MM">
+</div>
+
+<div class="col-md-4">
+<label for="year" class="control-label">year</label>
+<input type="number" class="form-control" name="year" id="year" placeholder="YYYY">
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<div class="col-md-12">
+<br></br>
+<h1>TIME OF BIRTH</h1>
+<h6><p> Enter in 24-hour clock. </p></h6>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<div class="col-md-4">
+<label for="hour" class="control-label">hour</label>
+<input type="number" class="form-control" name="hour" id="hour" placeholder="HH">
+</div>
+
+<div class="col-md-4">
+<label for="minute" class="control-label">minute</label>
+<input type="number" class="form-control" name="min" id="min" placeholder="MM">
+</div>
+
+<div class="col-md-4"> <label for="" class="control-label">format</label> <input type="number" class="form-control" id="" placeholder="24 Hours" disabled> </div>
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<div class="col-md-12">
+<br></br>
+<h1>PLACE OF BIRTH</h1>
+<h6><p> After you begin entering the CITY, make sure to select your PLACE OF BIRTH from the list of recommendations. </p></h6>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<div class="col-md-12">
+<input id="place" type="text" class="form-control" name="place" placeholder="Los Angeles, CA United States">
+<input type="hidden" name="lat" id="lat">
+<input type="hidden" name="lon" id="lon">
+<input type="hidden" name="tzone" id="tzone">
+</div>
+</div>
+
+<div class="form-group margin-top-20">
+<div class="col-md-12">
+<button type="submit" id="generateWHoroscope" class="btn btn-primary" data-style="expand-right">
+<span class="ladda-label">
+<i class="icon-arrow-right"></i> CALCULATE CHART </span>
+<span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
+</table>
+</div>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script>
+    function activatePlacesSearch(){
+        
+        var input = document.getElementById('place');
+        var options = {
+                  types: ['(cities)'],
+                    };
+                    
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
+            document.getElementById('lat').value = place.geometry.location.lat();
+            document.getElementById('lon').value = place.geometry.location.lng();
+                    var lat = document.getElementById('lat').value;
+        var lon = document.getElementById('lon').value;
+        var loc = [ lat, lon ];
+        var year = document.getElementById('year').value;
+        var month = document.getElementById('month').value - 1;
+        var day = document.getElementById('day').value;
+        var hour = document.getElementById('hour').value;
+        var min = document.getElementById('min').value;
+        var date = new Date( year, month, day, hour, min, 00, 0 );
+        console.log(date);
+        var timestamp = date / 1000;
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('GET', 'https://maps.googleapis.com/maps/api/timezone/json?location='+ loc + '&timestamp=' + timestamp + '&key=AIzaSyBXEAYjBPbDub-KJ3IiVSs7Un2JXU29hQM');
+        
+        ourRequest.onload = function(){
+        var ourData = JSON.parse(ourRequest.responseText);
+        console.log(ourData);
+        var zoneOne = ourData.rawOffset + ourData.dstOffset;
+        var zone = zoneOne / 3600;
+        document.getElementById('tzone').value = zone;
+        };
+        ourRequest.send();
+        });
+        
+    };
+</script>
+
+<script type="text/javascript" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXEAYjBPbDub-KJ3IiVSs7Un2JXU29hQM&libraries=places&callback=activatePlacesSearch"></script>

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Payment Type
+
+# Model Form Field configuration
+form: ~/plugins/responsiv/pay/models/paymentmethod/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pay\Models\PaymentMethod
+
+# Default redirect location
+defaultRedirect: responsiv/pay/paymentmethods
+
+# Create page
+create:
+    title: Create Payment Type
+    redirect: responsiv/pay/paymentmethods/update/:id
+    redirectClose: responsiv/pay/paymentmethods
+
+# Update page
+update:
+    title: Edit Payment Type
+    redirect: responsiv/pay/paymentmethods
+    redirectClose: responsiv/pay/paymentmethods
+
+# Preview page
+preview:
+    title: Preview Payment Type

@@ -1,0 +1,5 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table abrabinah_registration_'
+    - builder_table_create_abrabinah_registration_.php

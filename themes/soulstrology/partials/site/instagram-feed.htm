@@ -1,0 +1,19 @@
+==
+<div class="row no-gutters mb-5 mb-lg-0 ">
+<div class="container">
+    <div class="col-lg-12 mx-auto bg-black banner-section">
+    <div class"instafeed-container" id="instafeed-container"></div>
+	<script src="https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js"></script>
+	<script type="text/javascript">
+	var userFeed = new Instafeed({
+		get: 'user',
+		target: "instafeed-container",
+    	resolution: 'low_resolution',
+		accessToken: '[YOUR INSTAGRAM ACESS TOKEN]',
+		limit: 5,
+	});
+	userFeed.run( );
+	</script>
+	</div>
+</div>        
+</div>

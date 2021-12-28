@@ -1,0 +1,54 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    is_enabled:
+        label: responsiv.currency::lang.currency.is_enabled
+        comment: responsiv.currency::lang.currency.is_enabled_help
+        type: checkbox
+        span: auto
+        default: true
+
+    is_primary:
+        label: responsiv.currency::lang.currency.is_primary
+        comment: responsiv.currency::lang.currency.is_primary_help
+        type: checkbox
+        span: auto
+        default: true
+
+    name:
+        label: responsiv.currency::lang.currency.name
+        comment: responsiv.currency::lang.currency.name_help
+        span: full
+        tab: Currency
+        
+    currency_code:
+        label: responsiv.currency::lang.currency.currency_code
+        comment: responsiv.currency::lang.currency.currency_code_help
+        span: auto
+        tab: Currency
+
+    currency_symbol:
+        label: responsiv.currency::lang.currency.currency_symbol
+        comment: responsiv.currency::lang.currency.currency_symbol_help
+        span: auto
+        tab: Currency
+
+    decimal_point:
+        label: responsiv.currency::lang.currency.decimal_point
+        comment: responsiv.currency::lang.currency.decimal_point_help
+        span: auto
+        tab: Currency
+
+    thousand_separator:
+        label: responsiv.currency::lang.currency.thousand_separator
+        comment: responsiv.currency::lang.currency.thousand_separator_help
+        span: auto
+        tab: Currency
+
+    place_symbol_before:
+        label: responsiv.currency::lang.currency.place_symbol_before
+        type: checkbox
+        span: auto
+        tab: Currency

@@ -1,0 +1,26 @@
+title = "Processing Credit Card Update"
+url = "/processing-credit-card-update"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use RainLab\User\Models\Settings;
+
+function onStart()
+{
+        \Stripe\Stripe::setApiVersion("2019-05-16");
+        
+        $user = \Auth::getUser();
+        
+        $token = $_POST['stripeToken'];
+            if ( ! $token) {
+            throw new \RuntimeException('Stripe token is missing!');
+        }
+        
+        $user->updateCard($token);
+        
+        return redirect('my-profile');
+}
+?>
+==

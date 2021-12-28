@@ -1,0 +1,246 @@
+title = "Birth Chart"
+url = "/birth-chart"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[SeoPage]
+==
+<?php
+function onStart()
+{
+    $data = array(
+            "name"=>$_POST['name'],
+            "day"=>$_POST['day'],
+            "month"=>$_POST['month'],
+            "year"=>$_POST['year'],
+            "hour"=>$_POST['hour'],
+            "min"=>$_POST['min'],
+            "lat"=>$_POST['lat'],
+            "lon"=>$_POST['lon'],
+            "tzone"=>$_POST['tzone']
+    );
+    
+    $this['horoscope_data'] = $this->apiCall('western_horoscope',$data);
+    
+    $planets = $this['horoscope_data']['planets'];
+    
+     for($i=0;$i<count($planets);$i++){
+        
+       $planets[$i]['norm_degree'] = $this->DegMinSec($planets[$i]['norm_degree']);
+      
+       $planets[$i]['is_retro'] = $this->isRetro($planets[$i]['is_retro']);
+       
+     }
+    
+    $this['planets'] = $planets ;
+    
+    $this['wheel'] = $this->apiCall('wheel_chart/tropical',$data);
+    
+    $this['asc_report'] = $this->apiCall('general_ascendant_report/tropical',$data);
+    
+    $this['sun'] = $this->apiCall('general_sign_report/tropical/sun',$data);
+    
+    $this['moon'] = $this->apiCall('general_sign_report/tropical/moon',$data);
+    
+    $this['sun_house'] = $this->apiCall('general_house_report/tropical/sun',$data);
+    
+    $this['moon_house'] = $this->apiCall('general_house_report/tropical/moon',$data);
+    
+    $this['personality'] = $this->apiCall('personality_report/tropical',$data);
+    
+    $this['your_name'] = $_POST['name'];
+    
+    $this['your_birth_day'] = $_POST['day'];
+    
+    $this['your_birth_month'] = $_POST['month'];
+    
+    $this['your_birth_year'] = $_POST['year'];
+    
+    $this['your_birth_hour'] = $_POST['hour'];
+    
+    $this['your_birth_minute'] = $_POST['min'];
+    
+    $this['your_place'] = $_POST['place'];   
+    
+    $this['coordinates_a'] = $_POST['lat'];
+    
+    $this['coordinates_b'] = $_POST['lon'];
+    
+}
+
+
+function apiCall($api_name,$Data)
+{
+
+        $this->data = $Data;
+
+        $api_call = Http::post('http://json.astrologyapi.com/v1/'.$api_name, function($http){
+ 
+        // Sets a HTTP header
+        $http->header('Accept-Language','en');
+    
+        // Use basic authentication
+        $http->auth('603105', '[ YOUR OWN ASTROAPI KEY ]');
+    
+        // Sends data with the request
+        $http->data($this->data);
+    
+        // Disable redirects
+        $http->noRedirect();
+    
+        // Sets the timeout duration
+        $http->timeout(3600);
+    
+        // Sets a cURL option manually
+        $http->setOption(CURLOPT_RETURNTRANSFER, true);
+            
+    });
+    
+    return json_decode($api_call,true);
+
+}
+
+function DegMinSec($dec){
+    
+    $vars = explode(".",$dec);
+    $deg = $vars[0];
+    $tempma = "0.".$vars[1];
+    $tempma = $tempma * 3600;
+    $min = floor($tempma / 60);
+    $sec = round($tempma - ($min*60));
+    if($deg < 10) $deg = '0'.$deg;
+    if($min < 10) $min = '0'.$min;
+    if($sec < 10) $sec = '0'.$sec;
+    
+    return $deg;
+     
+}
+
+function isRetro($isRetro){
+    
+    if($isRetro === "true" || $isRetro === true)
+    {
+        return "R";
+    }
+    else{
+        return "-";    
+    }
+    
+}
+?>
+==
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="summary">
+    
+    <div class="row">
+    
+        <div class="bc col-lg-12">
+            <div class="birth_chart">
+                <center><p><h4>BIRTH&nbsp; CHART</h4></p></center>
+            </div>
+        </div>
+        
+        <div class="bcdescript col-lg-12">
+            <div class="descript">
+            <center>The below covers the soul essentials to your Birth Chart.</center>
+            <center>For a more comprehensive report, we suggest you purchase our <a href="/birth-chart-reading" target="_blank">BIRTH CHART READING</a>.</center>
+            <br></br>
+            <center><h2> {{ your_name }} </h2></center>
+            <center>  {{ your_birth_month }} / {{ your_birth_day }} / {{ your_birth_year }} ▲ {{ your_birth_hour }} : {{ your_birth_minute }} <p> {{ your_place }} ▲ Latitude: {{ coordinates_a }}° Longitude: {{ coordinates_b }}° </p> </center>    
+            </div>
+        </div>
+    
+        
+        <div class="col-lg-6">
+            <div class="wheel">
+                <img width="500" class="img-fluid" alt="Responsive image" src="{{wheel.url}}" />
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="planetchart">
+              <center><p>THE PLANETARY PLACEMENTS</p></center>
+                <center>           
+                <table class="p_placements">
+                <tbody>
+                {% for data in planets %}
+                
+                <tr>
+                <tr>
+                    <td><center>{{ data.name }}</center></td>
+                    <td><center>&nbsp;&nbsp;&nbsp;&nbsp;{{ data.sign }} </center></td>
+                    <td><center>&nbsp;&nbsp;&nbsp;&nbsp;{{ data.is_retro }} </center></td>
+                    <td><center>&nbsp;&nbsp;&nbsp;&nbsp;{{ data.norm_degree }}°</center></td>
+                    <td><center>&nbsp;&nbsp;&nbsp;&nbsp;{{ data.house }}</center></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                </center>
+            </div>
+        </div>
+
+        <div class="bc col-lg-12">
+            <div class="essential_title">
+                <center><p><h2>THE&nbsp; 3&nbsp; ESSENTIAL&nbsp; PLANETARY&nbsp; PLACEMENTS</h2></p></center>
+            </div>
+        </div> 
+        
+        <div class="col-lg-12">
+            <div class="trio">
+            <p><center><img class="" src="https://soulstrology.com/storage/app/media/s_tri.png" alt="placeholder image" width="50" height="50"></center></p>
+            <center><p><h2>Rising Sign is {{ asc_report.ascendant }}</h2></p></center>
+            <center> <p> {{ asc_report.report }} </p></center>
+            </div>
+        </div>
+        
+        <div class="col-lg-12">
+            <div class="trio">
+            <p><center><img class="" src="https://soulstrology.com/storage/app/media/s_tri.png" alt="placeholder image" width="50" height="50"></center></p>
+            <center><p><h2>Sun in {{ sun.sign_name }} in the {{ sun_house.house }}th House</h2></p><center>
+            <center><p> {{ sun.report }} </p></center>
+            <center><p> Your Sun in the {{ sun_house.house }}th House Means: {{ sun_house.report }} </p></center>
+            </div>
+        </div>
+        
+        <div class="col-lg-12">
+            <div class="trio">
+            <p><center><img class="" src="https://soulstrology.com/storage/app/media/s_tri.png" alt="placeholder image" width="50" height="50"></center></p>
+            <center><p><h2>Moon in {{ moon.sign_name }} in the {{ moon_house.house }}th House</h2></p><center>
+            <center><p> {{ moon.report }} </p></center>
+            <center><p> Your Moon in the {{ moon_house.house }}th House Means: {{ moon_house.report }} </p></center>
+            </div>
+        </div>
+        
+        <div class="col-lg-12">
+            <div class="birth_chart">
+                <center><p><h4> </h4></p></center>
+            </div>
+        </div>  
+        
+        <div class="bc col-lg-12">
+            <div class="personality_overview">
+                <center><p><h2>PERSONALITY&nbsp; OVERVIEW</h2></p></center>
+            </div>
+        </div>
+        
+        <div class="col-lg-12">
+            <div class="trio">
+            <br></br>
+            <center><p> {{ personality.report[1] }} </p></center>
+            <center><p> {{ personality.report[2] }} </p></center>
+            <center><p> {{ personality.report[3] }} </p></center>
+            <center><p> {{ personality.report[4] }} </p></center>
+            <center><p> {{ personality.report[5] }} </p></center>
+            <center><p> {{ personality.report[6] }} </p></center>
+            <center><p> {{ personality.report[7] }} </p></center>
+            <center><p> {{ personality.report[8] }} </p></center>
+            </div>
+        </div>
+        
+
+
+</div>
+</div>

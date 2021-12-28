@@ -1,0 +1,77 @@
+==
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="p:domain_verify" content="10023b7fff4dc0178f7f640fa08a8cb2"/>
+        <meta name="description" content="{{this.page.meta_description}}"> 
+        <title> Soulstrology - {{this.page.title}}</title>
+        <link rel="icon" type="image/x-icon" href="https://soulstrology.com/storage/app/media/thumb_4_64_64_0_0_crop.png" />
+        
+        <!-- Jquery-->
+        <script src="{{'assets/js/jquery.js'|theme}}"></script>
+        {% framework %}
+        
+        <!-- SnipCart-->
+        <link rel="preconnect" href="https://app.snipcart.com">
+        <link rel="preconnect" href="https://cdn.snipcart.com">
+        
+        <!--Stripe-->
+        <script src="https://js.stripe.com/v3/"></script>
+       
+        <!-- Tapfilliate-->
+        <script src="https://script.tapfiliate.com/tapfiliate.js" type="text/javascript" async></script>
+        <script type="text/javascript">
+          (function(t,a,p){t.TapfiliateObject=a;t[a]=t[a]||function(){
+          (t[a].q=t[a].q||[]).push(arguments)}})(window,'tap');
+
+          tap('create', '10717-b05336', { integration: "stripe" });
+          tap('detect');
+         </script>
+        
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        
+        <link rel="stylesheet" href="{{ 'assets/css/boostrap.css'|theme }}">
+        <link rel="stylesheet" href="{{ 'assets/css/soulstrology_theme.css'|theme }}">
+
+        {% partial 'site/header' %}
+        
+        {% partial 'site/member-login' %}
+       
+        {% partial 'site/reset' %}
+        
+</head>
+    
+    
+<body>
+
+
+{% page %}
+ 
+
+<footer>
+{% partial 'site/footer' %}
+</footer>  
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150074809-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-150074809-1');
+</script>
+
+<!-- SnipCart -->
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.21/default/snipcart.css" />
+<script async src="https://cdn.snipcart.com/themes/v3.0.21/default/snipcart.js"></script>
+<div id="snipcart" data-api-key="[ YOUR SNIPCART API KEY ]" hidden></div>
+
+</body>
+</html>

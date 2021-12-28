@@ -1,0 +1,170 @@
+title = "My Profile"
+url = "/my-profile"
+layout = "member-realm-template"
+is_hidden = 0
+
+[account]
+redirect = "my-profile"
+paramCode = "code"
+forceSecure = 0
+
+[session]
+security = "user"
+redirect = "membership"
+
+[invoicesList]
+loadingText = "Loading invoices..."
+==
+<?php
+use RainLab\User\Models\Settings;
+
+function onStart()
+{
+    $user = \Auth::getUser();
+    
+    $stripe_id = $user-> stripe_id;
+    
+    \Stripe\Stripe::setApiVersion("2019-05-16");
+
+    \Stripe\Stripe::setApiKey("[ YOUR STRIPE SECRET KEY ]");
+
+    $this['data'] = \Stripe\Customer::retrieve( $stripe_id );
+}
+?>
+==
+<body id="page-top">
+<!-- Header-->
+<div class="product-page"></div>
+<!-- Stripe -->
+<script src="{{'assets/vendor/profilestripe.js'|theme}}"></script>
+
+<div class="container">      
+          <div class="row mt-5 mb-5">
+            <div class="col-lg-12"></div>  
+            <div class="col-lg-12">
+            <div style="text-transform: uppercase" class="profile details">
+            {% if not user %}
+            <div class="oops">
+            <center>Oops! You need to be a Soulstrology Member to see this page.</center>
+            </div>
+            {% else %}
+            {% partial account ~ '::activation_check' %}
+            {% partial account ~ '::update' %}
+            </div>
+            </div>
+            
+            <div class="col-lg-12">
+                <div class="billing">
+                <center><h2 class="text-gold">BILLING</h2></center>
+                </div>
+                
+                <div class="plan">
+                <center>
+                <div class="card bg-light text-center">
+                  <div id="test" class="card-body">
+                    <p class="card-title text-gold">YOUR CURRENT PLAN</p>
+                    <h6 style="text-transform: uppercase" class="card-subtitle mb-2 text-muted"> {{ data.description }} </h6>
+                    
+                    <p class="card-title text-gold">BILLING INFO</p>
+                        <h6 style="text-transform: uppercase" class="card-subtitle mb-2 text-muted">{{ data.sources.data['0'].brand }} {{ data.sources.data['0'].last4 }} <button onclick="myBillFunction()" class="card-subtitle mb-2 text-muted">EDIT</button></h6>
+                        <h6></h6>
+                    <div class="my_bill" id="my_bill">
+                            <form action="/processing-credit-card-update" method="post" id="payment-form">
+                              <div class="form-row">
+                                <div id="card-element">
+                                  <!-- A Stripe Element will be inserted here. -->
+                                </div>
+
+                                <!-- Used to display form errors. -->
+                                <div id="card-errors" role="alert"></div>
+                              </div>
+                            <p></p>
+                          <h6><button type="submit" class="card-subtitle mb-2 text-muted">UPDATE CARD</button></h6>
+                        </form>
+                    <script>
+                    function myBillFunction() {
+                    var x = document.getElementById("my_bill");
+                      if (x.style.display === "block") {
+                        x.style.display = "none";
+                        } else {
+                        x.style.display = "block";
+                        }
+                        }
+                    </script>
+                    </div>
+                    </div>
+                </div>
+                </center>
+                </div>
+                
+                <div class="cancel_membership" id="cancel_membership">
+                <form action="/processing-membership-cancellation" method="post" class="text-left">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="subscription_id" value="{{ data.subscriptions.data['0'].id }}">
+                <h6><button type="submit" class="btn btn-link">CANCEL MEMBERSHIP</button></h6>
+                </form>
+                </div>
+                
+                <div class="resume_membership" id="{{ data.description }}">
+                <input type="hidden" name="_method" value="DELETE">
+                <p><button type="submit" data-toggle="modal" data-target="#myModal" class="btn">START MY SOULSTROLOGY MEMBERSHIP</button></p>
+                </div>
+            
+                <script>
+                  var y= document.getElementById("cancel_membership");
+                  var x = document.getElementById("cancelled");
+                  x.style.display = "block";
+                  y.style.display = "none";
+                </script>
+            </div>
+            </div>
+            </div>
+            {% endif %}
+            </div>
+            </div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      <p class="card-title">START YOUR SOULSTROLOGY MEMBERSHIP</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+      <p>Select a plan:</p>
+      <form action="/processing-new-subscription" method="post">
+        <div class="form-group">
+            <select name="new_plan" class="form-control">
+                <option value="26-soul-monthly">$26/MO MONTHLY MEMBERSHIP</option>
+                <option value="295-soul-annual">$295/YEAR ANNUAL MEMBERSHIP</option>
+            </select>
+        </div>             
+      </div>
+      <div class="modal-footer">
+        <button type="submit" data-toggle="modal" class="btn btn-default">SUBMIT</button>
+      </div>
+    </div>
+        </form>
+  </div>
+</div>
+
+<script>
+    function activateTimeStamp(){
+        
+        ourRequest.onload = function(){
+            var end_time = new Date({{ data.subscriptions.data['0'].current_period_end }});
+            var converted_end_time = end_time;
+            
+        console.log(converted_end_time);
+        document.getElementById('test').value = converted_end_time;
+        };
+        ourRequest.send();
+        };
+ 
+</script>
+</body>

@@ -1,0 +1,60 @@
+title = "Category Archieves"
+url = "/category-archieves/:slug"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[blogPosts categoryPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = ":slug"
+postsPerPage = 100
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "category"
+postPage = "member-post"
+
+[SeoPage]
+
+[session]
+security = "user"
+redirect = "membership"
+==
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="summary">      
+          <div class="row">
+ 
+        <div class="blog col-lg-12"></div> 
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+        <h2>CATEGORY ARCHIEVES</h2>
+        </div>
+        <div class="col-lg-2"></div>
+        
+        <div class="col-lg-2"></div>
+        <div class="blog col-lg-8">
+        <div class="transit_blog">
+        {% if categoryPosts.categories|length > 0 %}
+            <ul class="category-list">
+            {% partial categoryPosts ~ "::items"
+            categories = categoryPosts.categories
+            currentCategorySlug = categoryPosts.currentCategorySlug
+            %}
+            </ul>
+            {% else %}
+            <p>No categories were found.</p>
+            {% endif %}
+
+
+        </div>
+        </div>
+        <div class="col-lg-2"></div>
+       
+
+        
+  
+
+
+            
+        </div>
+</div>

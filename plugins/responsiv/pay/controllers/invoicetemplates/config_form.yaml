@@ -1,0 +1,21 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Invoice Template
+
+# Model Form Field configuration
+form: ~/plugins/responsiv/pay/models/invoicetemplate/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pay\Models\InvoiceTemplate
+
+# Default redirect location
+defaultRedirect: responsiv/pay/invoicetemplates
+
+# Update page
+update:
+    title: Edit Invoice Template
+    redirect: responsiv/pay/invoicetemplates
+    redirectClose: system/settings
