@@ -27,7 +27,7 @@ These 3 script files work with `<script src="https://js.stripe.com/v3/"></script
 
 
 ### MEMBERSHIP REGISTRATION
-I created a plugin found in `plugins/abrabinah/registration` to process this Membership Registration. It uses [RainLab User-Plugin](https://github.com/rainlab/user-plugin), [Stripe API](https://stripe.com/docs/api), and [MailChimp](https://mailchimp.com/). Here's what it does:
+I created a plugin found in `plugins/abrabinah/registration` to process this Membership Registration. It uses [RainLab User-Plugin](https://github.com/rainlab/user-plugin), [Stripe API](https://stripe.com/docs/api), and [MailChimp](https://mailchimp.com/). Locate the `Plugin.php` to update the Stripe and MailChimp API keys to your own configuration. Here's what this plugin does:
 
 1. It first checks for all the required arguments: First Name, Last Name, Email, Password, StripeToken (CC), and Membership Plan. It will throw an error if there's any duplicate data from the database, missing data from the form, or missing StripeToken.
 
@@ -42,12 +42,12 @@ I created a plugin found in `plugins/abrabinah/registration` to process this Mem
 
 The Membership Registration Form is in a modal found in `themes/soulstrology/partials/membership-registration.htm`. It's activated by *SIGN UP NOW!* in the Navbar.
 
-Locate the `Plugin.php` to update the Stripe and MailChimp API keys to your own configuration.
+
 
 
 
 ### MEMBER REALM
-The `member-realm.htm` is the main page where Member's can access their content. This page and `member-post.htm` is restricted to *active* Stripe Subscriptions. It runs the code below on-load to validate the subscription using the StripeID connected to the User's account. If the Subscription doesn't check out, the User will be redirected to the **MY PROFILE** page (see the next section). To activate this feature update the page with your Stripe Secret Key.   
+The `member-realm.htm` is the main page where Member's can access their content. This page and `member-post.htm` is restricted to *active* Stripe Subscriptions. It runs the code below to validate the subscription using the StripeID connected to the User's account. If the Subscription doesn't check out, the User will be redirected to the **MY PROFILE** page (see the next section). To activate this feature update the page with your Stripe Secret Key.   
 
 ```
 function onStart()
