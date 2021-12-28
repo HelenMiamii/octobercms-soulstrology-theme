@@ -6,7 +6,6 @@ MAIN FEATURES
 1. Content Based Membership Platform
 2. E-Commerce
 3. Birth Chart Calculator
-4. Tapfilliate 
 
 
 ## CONTENT BASED MEMBERSHIP PLATFORM
@@ -266,7 +265,7 @@ The Birth Chart Calculator was created using the Western Astrology feature from 
 
 The `birth-chart-calculator.htm` is the form a User fills out. Once this form is submitted, it sends a request to Astrology API. The `birth-charts-results.htm` provides the results.
 
-BIRTH CHART FORM 
+### BIRTH CHART FORM 
 The Birth Chart requires these parameters: Name=>'name', Birth Day=>'day', Birth Month=>'month', Birth Year=>'year', Birth Hour=>'hour', Birth Minute=>'min', Birth Place Latitude=>'lat', Birth Place Longitude=>'lon', and Birth Time Time Zone=>'tzone'.
 
 The [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview) script below the form is activated when the User starts to enter their Birth Location. Once the User selects their Birth Location from the Google populated list, a request is sent to source the Latitude and Longtitude. The script drops those points in the designated hidden 'lat' and 'lon' fields in the form. The script ends with some math to find the 'tzone' and drops it into a hidden field in the form. 
@@ -433,5 +432,10 @@ The [Google Geocoding API](https://developers.google.com/maps/documentation/geoc
 
 <script type="text/javascript" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXEAYjBPbDub-KJ3IiVSs7Un2JXU29hQM&libraries=places&callback=activatePlacesSearch"></script>
 ```
+
+### BIRTH CHART RESULTS
+The `birth-chart-results.htm` page was built using the JSON data created by the Birth Chart Form that was submitted.
+
+
 
 
